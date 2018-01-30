@@ -1,9 +1,31 @@
+var path = require('path');
+// var webpack = require('webpack');
+/* var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('shared'); /* this brings in
+this extracts the webpack common code to a shared file -- for debugging, try running
+webpack --display-entrypoints */
+
 module.exports = {
-    entry: ["./app.js", "./utils.js"], // the file entry point
+    context: path.resolve('js'), // context adds in a root directory for the entry key (so it will look for app and utils inside the js folder)
+    //entry: ["./app", "./utils"], // the file entry points
+    // entry: {
+    //     about: './about_page.js',
+    //     home: './home_page.js',
+    //     contact: './contact_page.js'
+    // },
+    entry: ['./app'],
     output: {
-        filename: "bundle.js" // name of bundled file
+        path: path.resolve('build/js'),
+        publicPath: '/public/assets/js/', // path to place the bundled file in
+        filename: 'bundle.js' // name of bundled file
+        // filename: '[name].js' // this way, the file name will vary based on the entry point key
     },
     watch: true ,// this has webpack watch the entry file for changes and auto rebuild when it sees them
+
+    // plugins: [commonsPlugin],
+
+    devServer: {
+        contentBase: 'public' // this tells our dev server where to look for the index.html file
+    },
 
     module : {
         rules: [
@@ -25,6 +47,12 @@ module.exports = {
                         loader: "babel-loader"
                     }
                 ]
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loader: 'style-loader!css-loader' //this means run it through the css loader first, then the style loader
+
             }
         ]
     },
