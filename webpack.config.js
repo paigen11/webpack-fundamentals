@@ -6,19 +6,25 @@ module.exports = {
     watch: true ,// this has webpack watch the entry file for changes and auto rebuild when it sees them
 
     module : {
-        preLoaders: [
+        rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "jshint-loader"
-            }
-
-        ],
-        loaders: [
+                test: /\.js$/, // include .js files
+                enforce: "pre", // preload the jshint loader
+                exclude: /node_modules/, // exclude any and all files in the node_modules folder
+                use: [
+                    {
+                        loader: "jshint-loader"
+                    }
+                ]
+            },
             {
                 test: /\.es6$/,
                 exclude: /node_modules/,
-                loader: "babel-loader"
+                use: [
+                    {
+                        loader: "babel-loader"
+                    }
+                ]
             }
         ]
     },
