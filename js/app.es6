@@ -8,4 +8,12 @@
 console.log('App loaded');
 
 require('../css/bootstrap.css');
-require('../css/app.css');
+
+//with just css
+// require('../css/app.css');
+
+//with sass/scss
+// require('../css/app.scss');
+
+//with less
+require('../css/app.less');
