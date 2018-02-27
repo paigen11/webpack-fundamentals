@@ -16,10 +16,10 @@ module.exports = {
     // },
     entry: ['./app'],
     output: {
-        // path: path.resolve('build/'),
-        path: path.resolve('build/js/'),
-        // publicPath: '/public/assets/', // path to place the bundled file in
-        publicPath: 'public/assets/js/',
+        path: path.resolve('build/'),
+        // path: path.resolve('build/js/'),
+        publicPath: '/public/assets/', // path to place the bundled file in
+        // publicPath: 'public/assets/js/',
         filename: 'bundle.js' // name of bundled file
         // filename: '[name].js' // this way, the file name will vary based on the entry point key
     },
@@ -78,6 +78,11 @@ module.exports = {
                 //     use: ['css-loader','less-loader'] //and an example using less
                 // })
                 loader: 'style-loader!css-loader!autoprefixer-loader!less-loader'
+            },
+            {
+                test: /\.(png|jpg|ttf|eot)$/, // this can handle images and font files
+                exclude: /node_modules/,
+                loader: 'url-loader?limit=100000' // as long as they're under the limit set the
             }
         ]
     },
