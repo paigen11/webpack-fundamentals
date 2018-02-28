@@ -7,7 +7,7 @@ webpack --display-entrypoints */
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    context: path.resolve('js'), // context adds in a root directory for the entry key (so it will look for app and utils inside the js folder)
+    context: path.resolve('public/js'), // context adds in a root directory for the entry key (so it will look for app and utils inside the js folder)
     //entry: ["./app", "./utils"], // the file entry points
     // entry: {
     //     about: './about_page.js',
@@ -16,10 +16,10 @@ module.exports = {
     // },
     entry: ['./app'],
     output: {
-        path: path.resolve('build/'),
-        // path: path.resolve('build/js/'),
-        publicPath: '/public/assets/', // path to place the bundled file in
-        // publicPath: 'public/assets/js/',
+        // path: path.resolve('build/'),
+        path: path.resolve('build/js/'),
+        // publicPath: '/public/assets/', // path to place the bundled file in
+        publicPath: 'public/assets/js/',
         filename: 'bundle.js' // name of bundled file
         // filename: '[name].js' // this way, the file name will vary based on the entry point key
     },
@@ -83,6 +83,11 @@ module.exports = {
                 test: /\.(png|jpg|ttf|eot)$/, // this can handle images and font files
                 exclude: /node_modules/,
                 loader: 'url-loader?limit=100000' // as long as they're under the limit set the
+            },
+            {
+                test: /\.json$/,
+                exclude: /node_modules/,
+                loader: 'json-loader!' + path.resolve('/loaders/strip')
             }
         ]
     },

@@ -24,3 +24,7 @@ require('../css/bootstrap.css');
 
 //with less
 require('../css/app.less');
+
+var config = require('../config/config.json');
+
+console.log(config.app_loaded_msg);
